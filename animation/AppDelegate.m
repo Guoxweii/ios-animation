@@ -16,7 +16,6 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor brownColor];
     
     ViewController *vc = [[ViewController alloc] init];
     self.window.rootViewController = vc;

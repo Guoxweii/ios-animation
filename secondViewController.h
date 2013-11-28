@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  secondViewController.h
 //  animation
 //
 //  Created by gxw on 13-11-28.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "firstViewController.h"
-#import "secondViewController.h"
 
-@interface ViewController : UIViewController
-
+@interface secondViewController : UIViewController
+@property (retain,nonatomic) id delegate;
 @end
