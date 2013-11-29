@@ -11,6 +11,8 @@
 @interface ViewController ()
 @property (retain,nonatomic) firstViewController *firstCtr;
 @property (retain,nonatomic) secondViewController *secondCtr;
+- (void)createFirstView;
+- (void)createSecondView;
 @end
 
 @implementation ViewController
@@ -23,15 +25,61 @@
     view.backgroundColor=[UIColor cyanColor];
     self.view = view;
     
+    [self createFirstView];
+    [self createSecondView];
+}
+
+- (void)createFirstView
+{
     firstViewController *firstViewCtr = [[firstViewController alloc] init];
     firstViewCtr.delegate = self;
     [self.view addSubview: firstViewCtr.view];
     _firstCtr = firstViewCtr;
     
+    _firstCtr.changeBlock = ^(float duration) {
+        [UIView beginAnimations:nil context:nil];
+        //持续时间
+        [UIView setAnimationDuration:duration];
+        //在出动画的时候减缓速度
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        //添加动画开始及结束的代理
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationWillStartSelector:@selector(begin)];
+        [UIView setAnimationDidStopSelector:@selector(stopAni)];
+        //动画效果
+        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
+        [self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
+        CGRect frame = [UIScreen mainScreen].applicationFrame;
+        self.secondCtr.view.frame = CGRectMake(0, 20, frame.size.width, frame.size.height);
+        self.firstCtr.view.frame = CGRectMake(frame.size.width, 20, frame.size.width, frame.size.height);
+        [UIView commitAnimations];
+    };
+}
+
+- (void)createSecondView
+{
     secondViewController *secondCtr = [[secondViewController alloc] init];
     secondCtr.delegate = self;
     [self.view addSubview:secondCtr.view];
     _secondCtr = secondCtr;
+    _secondCtr.changeBlock = ^(float duration) {
+        [UIView beginAnimations:nil context:nil];
+        //持续时间
+        [UIView setAnimationDuration:duration];
+        //在出动画的时候减缓速度
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        //添加动画开始及结束的代理
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationWillStartSelector:@selector(begin)];
+        [UIView setAnimationDidStopSelector:@selector(stopAni)];
+        //动画效果
+        //    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
+        //    [self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:0];
+        CGRect frame = [UIScreen mainScreen].applicationFrame;
+        self.firstCtr.view.frame = CGRectMake(0, 20, frame.size.width, frame.size.height);
+        self.secondCtr.view.frame = CGRectMake(frame.size.width, 20, frame.size.width, frame.size.height);
+        [UIView commitAnimations];
+    };
 }
 
 - (void)viewDidLoad
@@ -54,22 +102,6 @@
     NSLog(@"go to first!");
     //    CGRect frame = [UIScreen mainScreen].applicationFrame;
     //    self.secondCtr.view.frame = CGRectMake(-100, 20, frame.size.width, frame.size.height);
-    [UIView beginAnimations:nil context:nil];
-    //持续时间
-    [UIView setAnimationDuration:1.8f];
-    //在出动画的时候减缓速度
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    //添加动画开始及结束的代理
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationWillStartSelector:@selector(begin)];
-    [UIView setAnimationDidStopSelector:@selector(stopAni)];
-    //动画效果
-    //    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
-    //    [self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:0];
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    self.secondCtr.view.frame = CGRectMake(0, 20, frame.size.width, frame.size.height);
-    self.firstCtr.view.frame = CGRectMake(frame.size.width, 20, frame.size.width, frame.size.height);
-    [UIView commitAnimations];
 }
 
 - (void)redirectToFirst
@@ -77,22 +109,6 @@
     NSLog(@"go to first!");
 //    CGRect frame = [UIScreen mainScreen].applicationFrame;
 //    self.secondCtr.view.frame = CGRectMake(-100, 20, frame.size.width, frame.size.height);
-    [UIView beginAnimations:nil context:nil];
-    //持续时间
-    [UIView setAnimationDuration:1.8f];
-    //在出动画的时候减缓速度
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    //添加动画开始及结束的代理
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationWillStartSelector:@selector(begin)];
-    [UIView setAnimationDidStopSelector:@selector(stopAni)];
-    //动画效果
-//    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
-//    [self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:0];
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    self.firstCtr.view.frame = CGRectMake(0, 20, frame.size.width, frame.size.height);
-    self.secondCtr.view.frame = CGRectMake(frame.size.width, 20, frame.size.width, frame.size.height);
-    [UIView commitAnimations];
 }
 
 @end

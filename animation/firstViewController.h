@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void (^CodeBlock)(float);
 
 @interface firstViewController : UIViewController
 @property (retain, nonatomic) id delegate;
+@property (retain, nonatomic) CodeBlock changeBlock;
 @end

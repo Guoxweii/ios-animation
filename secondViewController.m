@@ -5,9 +5,7 @@
 //  Created by gxw on 13-11-28.
 //  Copyright (c) 2013年 gxw. All rights reserved.
 //
-
 #import "secondViewController.h"
-
 @interface secondViewController ()
 
 @end
@@ -31,7 +29,7 @@
     button.backgroundColor = [UIColor yellowColor];
     [button setTitle:@"goto" forState:UIControlStateNormal];
     
-    [button addTarget:_delegate action:@selector(redirectToFirst) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(redirectToFirst) forControlEvents:UIControlEventTouchDown];
     
     [self.view addSubview:button];
 	// Do any additional setup after loading the view.
@@ -46,6 +44,7 @@
 - (void)redirectToFirst
 {
     NSLog(@"testing delegate! the second view!");
+    self.changeBlock(0.8f);
 }
 
 @end

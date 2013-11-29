@@ -32,7 +32,7 @@
     [button setTitle:@"change" forState:UIControlStateNormal];
     NSLog(@"%@", _delegate);
     
-    [button addTarget:_delegate action:@selector(redirectToSecond) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(redirectToSecond) forControlEvents:UIControlEventTouchDown];
     
     [self.view addSubview:button];
 }
@@ -40,6 +40,7 @@
 - (void)redirectToSecond
 {
     NSLog(@"just for test!");
+    self.changeBlock(0.4f);
 }
 
 - (void)didReceiveMemoryWarning
